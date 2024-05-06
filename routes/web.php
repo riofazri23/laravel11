@@ -3,15 +3,24 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home',['title'=>'Home Page']);
 });
 
 Route::get('/about', function(){
-    return view('about',['nama'=>'Rio Fazri']);
+    return view('about',
+        [
+            'nama'=>'Rio Fazri',
+            'title'=>'About',
+        ]
+    );
 });
 
 Route::get('/blog',function(){
-    return view('blog');
+    return view('blog',
+        [
+            'title'=>'Blog'
+        ]
+    );
 });
 
 Route::get('/contact',function(){
@@ -20,7 +29,8 @@ Route::get('/contact',function(){
             'nama'=>'Rio Fazri',
             'email'=>'riofazri23@gmail.com',
             'notelp'=>'0878 7537 0864',
-            'domisili'=>'Jakarta Timur'
+            'domisili'=>'Jakarta Timur',
+            'title'=>'Contact',
 
         ]
     );
