@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Arr;
+
 
 Route::get('/', function () {
     return view('home',['title'=>'Home Page']);
@@ -19,48 +21,15 @@ Route::get('/about', function(){
 Route::get('/posts',function(){
     return view('posts',
         [
-            'title'=>'Post',
-            'posts'=>[
-                [
-                    'id'=>1,
-                    'slug'=>'judul-artikel-1',
-                    'title'=>'Judul Artikel 1',
-                    'author'=>'Rio Fazri',
-                    'body'=>'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto voluptas mollitia similique quis eaque impedit quisquam quaerat repudiandae eos saepe.'
-                ],
-                [
-                    'id'=>2,
-                    'slug'=>'judul-artikel-2',
-                    'title'=>'Judul Artikel 2',
-                    'author'=>'Rio Fazri',
-                    'body'=>'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure eaque autem possimus dolor ex beatae reprehenderit. Sint ducimus fugiat totam rerum. Minus voluptates deserunt dolore quisquam voluptatem, amet adipisci quaerat?'
-                ]
-            ]
+            'title'=>'Blog',
+            'posts'=> Post::all()
         ]
     );
 });
 
 Route::get('/posts/{slug}',function($slug){
-    $posts=[
-            [
-                'id'=>1,
-                'title'=>'Judul Artikel 1',
-                'slug'=>'judul-artikel-1',
-                'author'=>'Rio Fazri',
-                'body'=>'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto voluptas mollitia similique quis eaque impedit quisquam quaerat repudiandae eos saepe.'
-            ],
-            [
-                'id'=>2,
-                'title'=>'Judul Artikel 2',
-                'slug'=>'judul-artikel-2',
-                'author'=>'Rio Fazri',
-                'body'=>'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure eaque autem possimus dolor ex beatae reprehenderit. Sint ducimus fugiat totam rerum. Minus voluptates deserunt dolore quisquam voluptatem, amet adipisci quaerat?'
-            ]
-        ];
 
-        $post = Arr::first($posts, function($post) use ($slug) {
-            return $post['slug'] == $slug;
-        });
+        $post = Post::find($slug);
 
         return view('post',['title'=>'Single Post', 'post'=>$post]);
 });
